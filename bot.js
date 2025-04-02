@@ -4,9 +4,9 @@ const { Builder, By } = require('selenium-webdriver');
 const fs = require('fs');
 const path = require('path');
 
-const BOT_TOKEN = 'YOUR_BOT_TOKEN';
+const BOT_TOKEN = '8086048340:AAG-4pdcyFhWJnlsIkmlHriPfqMRQs9yzck';
 const bot = new Telegraf(BOT_TOKEN);
-const INSTAGRAM_USERNAME = 'TARGET_USERNAME';
+const INSTAGRAM_USERNAME = 'shaurma.na.ugliah';
 let autoMode = true;
 
 // Функция для скачивания истории Instagram
