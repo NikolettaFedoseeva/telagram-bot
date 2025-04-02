@@ -1,0 +1,17 @@
+{
+    "name": "telegram-instagram-bot",
+    "version": "1.0.0",
+    "description": "Telegram bot for fetching Instagram Stories and creating polls",
+    "main": "bot.js",
+    "scripts": {
+      "start": "node bot.js"
+    },
+    "dependencies": {
+      "telegraf": "^4.12.2",
+      "node-schedule": "^2.1.1",
+      "selenium-webdriver": "^4.12.0",
+      "fs": "0.0.1-security",
+      "path": "^0.12.7"
+    }
+  }
+  
