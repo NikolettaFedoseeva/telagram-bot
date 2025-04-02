@@ -9,6 +9,11 @@ const bot = new Telegraf(BOT_TOKEN);
 const INSTAGRAM_USERNAME = 'shaurma.na.ugliah';
 let autoMode = true;
 
+if (!BOT_TOKEN) {
+    console.error("❌ BOT_TOKEN не найден! Проверь переменные окружения.");
+    process.exit(1);
+}
+
 // Функция для скачивания истории Instagram
 async function downloadInstagramStory() {
     let driver = await new Builder().forBrowser('chrome').build();
