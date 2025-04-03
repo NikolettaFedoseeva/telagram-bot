@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-
+import os
 load_dotenv()
 
-BOT_TOKEN = '8086048340:AAG-4pdcyFhWJnlsIkmlHriPfqMRQs9yzck'
-INSTAGRAM_USERNAME = 'shaurma.na.ugliah'
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+INSTAGRAM_USERNAME = os.getenv("INSTAGRAM_USERNAME")
