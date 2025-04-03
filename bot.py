@@ -1,12 +1,13 @@
 import logging
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
+import os
 
 # Включаем логирование
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 # Функция для обработки команды /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     print("Команда /start была вызвана.")
@@ -25,7 +26,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 def main() -> None:
     # Токен, полученный от @BotFather
-    application = Application.builder().token("ВАШ_ТОКЕН").build()
+    application = Application.builder().token(BOT_TOKEN).build()
 
     # Добавление обработчиков команд
     application.add_handler(CommandHandler("start", start))
