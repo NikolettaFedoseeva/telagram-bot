@@ -1,30 +1,39 @@
-import os
+import logging
 from telegram import Update
-from telegram.ext import Application, CommandHandler
-from dotenv import load_dotenv
+from telegram.ext import Application, CommandHandler, ContextTypes
 
-# Загружаем переменные окружения
-load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+# Включаем логирование
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Функция для команды /start
-async def start(update: Update, context):
-    print("Вход в функцию start")
-    # Отправка картинки по ссылке
-    image_url = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg"
-    await context.bot.send_photo(chat_id=update.message.chat_id, photo=image_url, caption="Привет! Вот картинка, как ты и просил!")
+# Функция для обработки команды /start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    print("Команда /start была вызвана.")
+    await update.message.reply_photo(
+        'https://www.imgonline.com.ua/examples/bee-on-daisy.jpg',
+        caption="Привет! Это твоя картинка."
+    )
 
-# Основная функция для запуска бота
-def main():
-    print("Вход в функцию main")
-    application = Application.builder().token(BOT_TOKEN).build()
-    # Обработка команды /start
+# Функция для обработки команды /help
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    print("Команда /help была вызвана.")
+    await update.message.reply_text(
+        "Этот бот может отправить картинку при команде /start.\n"
+        "Просто напишите /start, и я пришлю вам изображение."
+    )
+
+def main() -> None:
+    # Токен, полученный от @BotFather
+    application = Application.builder().token("ВАШ_ТОКЕН").build()
+
+    # Добавление обработчиков команд
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("help", help_command))
 
-    print("Вход в функцию main application ", application)
     # Запуск бота
+    print("Бот запущен 🚀")
     application.run_polling()
 
-if __name__ == "__main__":
-    print("Бот запущен 🚀")
+if __name__ == '__main__':
     main()
