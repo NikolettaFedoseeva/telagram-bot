@@ -1,5 +1,6 @@
 import instaloader
 import os
+from telegram import Update
 from dotenv import load_dotenv
 
 # Загрузка переменных окружения
@@ -10,14 +11,22 @@ LOGIN = os.getenv("LOGIN")
 PASSWORD = os.getenv("PASSWORD")
 
 
-def download_instagram_story():
+async def download_instagram_story(update: Update):
     """Скачивает последнюю историю Instagram для указанного профиля"""
     loader = instaloader.Instaloader(download_pictures=True, download_videos=False)
     loader.login(LOGIN, PASSWORD)
+    await update.message.reply_photo(
+        '',
+        caption="Авторизация..."
+    )
     try:
+
         # Скачиваем истории
         loader.download_profile(INSTAGRAM_USERNAME, profile_pic=False, fast_update=True, stories=True)
-
+        await update.message.reply_photo(
+            '',
+            caption="Скачиваем истории..."
+        )
         # Находим последнюю скачанную историю
         profile_folder = f"./{INSTAGRAM_USERNAME}"
         if not os.path.exists(profile_folder):

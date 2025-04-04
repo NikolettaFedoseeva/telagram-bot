@@ -12,7 +12,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 # Функция для обработки команды /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     print("Команда /start была вызвана.")
-    image = await download_instagram_story()
+    image = await download_instagram_story(Update)
     if image:
         await update.message.reply_photo(
             image,
