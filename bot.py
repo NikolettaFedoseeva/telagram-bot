@@ -2,6 +2,7 @@ import logging
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 import os
+from instagram_scraper import download_instagram_story
 
 # Включаем логирование
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -11,11 +12,17 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 # Функция для обработки команды /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     print("Команда /start была вызвана.")
-    await update.message.reply_photo(
-        'https://www.imgonline.com.ua/examples/bee-on-daisy.jpg',
-        caption="Привет! Это твоя картинка."
-    )
-
+    image = await download_instagram_story()
+    if image:
+        await update.message.reply_photo(
+            image,
+            caption="Привет! Эта картинка из истории!!"
+        )
+    else:
+        await update.message.reply_photo(
+            'https://www.imgonline.com.ua/examples/bee-on-daisy.jpg',
+            caption="Привет! Это твоя картинка."
+        )
 # Функция для обработки команды /help
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     print("Команда /help была вызвана.")

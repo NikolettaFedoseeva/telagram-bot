@@ -6,12 +6,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 INSTAGRAM_USERNAME = os.getenv("INSTAGRAM_USERNAME")
+LOGIN = os.getenv("LOGIN")
+PASSWORD = os.getenv("PASSWORD")
 
 
 def download_instagram_story():
     """Скачивает последнюю историю Instagram для указанного профиля"""
     loader = instaloader.Instaloader(download_pictures=True, download_videos=False)
-
+    loader.login(LOGIN, PASSWORD)
     try:
         # Скачиваем истории
         loader.download_profile(INSTAGRAM_USERNAME, profile_pic=False, fast_update=True, stories=True)
